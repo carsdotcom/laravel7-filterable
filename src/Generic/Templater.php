@@ -4,6 +4,7 @@ namespace Kyslik\LaravelFilterable\Generic;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Kyslik\LaravelFilterable\Exceptions\InvalidArgumentException;
 
 class Templater
@@ -33,11 +34,13 @@ class Templater
     {
         if (is_null($template)) {
             return $value;
-        } elseif (method_exists($this, camel_case($template))) {
-            return $this->{camel_case($template)}($value);
-        } else {
-            return str_replace('?', $value, $template);
         }
+
+        if (method_exists($this, $methodName = Str::camel($template))) {
+            return $this->$methodName($value);
+        }
+
+        return str_replace('?', $value, $template);
     }
 
 
@@ -50,7 +53,13 @@ class Templater
     protected function timestamp($value)
     {
         try {
-            return $this->carbon->timestamp($value)->toDateTimeString();
+            $timestamp = $this->carbon->timestamp($value)->toDateTimeString();
+
+            if ($timestamp === '1970-01-01 00:00:00') {
+                throw new \InvalidArgumentException();
+            }
+
+            return $timestamp;
         } catch (\Exception $exception) {
             throw new InvalidArgumentException('Provided timestamp \''.$value.'\' appears to be invalid.');
         }
@@ -77,7 +86,7 @@ class Templater
 
     protected function boolean($value)
     {
-        if ($value == '1' || $value == 'true' || $value == 'yes') {
+        if ($value == '1' || $value === 'true' || $value === 'yes') {
             return (int)true;
         } elseif ($value == '0' || $value == 'false' || $value == 'no') {
             return (int)false;
