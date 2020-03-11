@@ -1,5 +1,5 @@
 {
-    "name": "kyslik/laravel-filterable",
+    "name": "mhomayoun/laravel7-filterable",
     "description": "Using URL query strings to filter Eloquent queries.",
     "keywords": [
         "kyslik",
