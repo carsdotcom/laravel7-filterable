@@ -11,7 +11,7 @@ This package allows you to easily handle database filtering through query string
 You can install the package via composer:
 
 ```bash
-composer require kyslik/laravel-filterable
+composer require mhomayoun/laravel7-filterable
 ```
 
 Laravel will discover the package by itself. If you feel old-school, disable auto-discovery and add `Kyslik\LaravelFilterable\FilterableServiceProvider::class` to the providers array in your `config/app.php`.
