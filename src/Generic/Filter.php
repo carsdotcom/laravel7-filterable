@@ -37,27 +37,27 @@ abstract class Filter extends BaseFilter
     /**
      * @var \Kyslik\LaravelFilterable\Generic\Templater
      */
-    private $templater;
+    protected $templater;
 
     /**
      * @var array
      */
-    private $filterTypes;
+    protected $filterTypes;
 
     /**
      * @var array
      */
-    private $except = [];
+    protected $except = [];
 
     /**
      * @var array
      */
-    private $only = [];
+    protected $only = [];
 
     /**
      * @var array
      */
-    private $for = [];
+    protected $for = [];
 
 
     /**
@@ -218,7 +218,7 @@ abstract class Filter extends BaseFilter
     }
 
 
-    private function loadFilterTypes($configuration)
+    protected function loadFilterTypes($configuration)
     {
         $types = [];
         foreach ($configuration as $type => $value) {
@@ -237,7 +237,7 @@ abstract class Filter extends BaseFilter
      * @return bool
      * @throws \Kyslik\LaravelFilterable\Exceptions\InvalidSettingsException
      */
-    private function prepareSettings($filters, $type): bool
+    protected function prepareSettings($filters, $type): bool
     {
         if (empty($filters)) {
             return false;
@@ -268,7 +268,7 @@ abstract class Filter extends BaseFilter
     }
 
 
-    private function determineGenericFilters()
+    protected function determineGenericFilters()
     {
         $filters = [];
         foreach ($this->filters() as $column => $value) {
@@ -307,7 +307,7 @@ abstract class Filter extends BaseFilter
      * @param $column
      * @param $value
      */
-    private function transformFilters(&$filters, $column, $value)
+    protected function transformFilters(&$filters, $column, $value)
     {
         $prepareFilter = function ($type, $value) {
             return [
@@ -328,7 +328,7 @@ abstract class Filter extends BaseFilter
     }
 
 
-    private function determineGroupingOperator()
+    protected function determineGroupingOperator()
     {
         $this->groupingOperator =
             strtolower($this->request->get(config('filterable.uri_grouping_operator', 'grouping-operator'), null));
@@ -344,7 +344,7 @@ abstract class Filter extends BaseFilter
      *
      * @return array|mixed
      */
-    private function prepareFilters($column)
+    protected function prepareFilters($column)
     {
         $filterTypes = $this->filterTypes;
 
