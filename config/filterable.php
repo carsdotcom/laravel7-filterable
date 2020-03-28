@@ -55,4 +55,32 @@ return [
     'default_grouping_operator' => 'and',
 
     'uri_grouping_operator' => 'grouping-operator',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Extended/Algolia-style filtering
+    |--------------------------------------------------------------------------
+    */
+
+    'extended_filter' => [
+
+        // The request parameter to use for sorting
+        'sort_by_param' => 'sortBy',
+
+        // The request parameter to use be used for sql-like filtering
+        'filters_param' => 'filters',
+
+        // The request parameter to use be used for filtering by facets
+        'facet_filters_param' => 'facetFilters',
+
+
+        // The request parameter to be used in the SELECT statement. By default we will return all columns
+        'attributes_to_retrieve_param' => 'attributesToRetrieve',
+
+        // The request parameter to be used for keyword searches
+        'keyword_search_param' => 'keyword',
+
+        // The database column name to use for keyword/fulltext searches
+        'keyword_search_column' => 'keyword'
+    ]
 ];

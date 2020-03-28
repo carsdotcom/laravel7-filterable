@@ -25,6 +25,7 @@
     },
     "require-dev": {
         "laravel/framework": "7.*",
+        "limedeck/phpunit-detailed-printer": "^5.0",
         "orchestra/testbench": "5.*",
         "phpunit/phpunit": "8.*"
     },
@@ -42,7 +43,7 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/phpunit --no-coverage --colors=always"
     },
     "config": {
         "sort-packages": true

@@ -271,7 +271,7 @@ abstract class Filter extends BaseFilter
     protected function determineGenericFilters()
     {
         $filters = [];
-        foreach ($this->filters() as $column => $value) {
+        foreach ($this->getSanitizedFilters() as $column => $value) {
             $this->transformFilters($filters, $column, $value);
         }
 
@@ -285,7 +285,7 @@ abstract class Filter extends BaseFilter
      *
      * @return array
      */
-    private function filters()
+    protected function getSanitizedFilters()
     {
         // Grab all data from query strings that start with the prefix $this->prefix.
         $data = $this->request->only($this->prefixedFilterables);
