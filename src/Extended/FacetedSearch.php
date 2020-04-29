@@ -54,6 +54,11 @@ trait FacetedSearch
 
             $methodName = count($values) > 1 ? 'whereIn' : 'where';
 
+            if ($this->isJsonField($attributeName)) {
+                $this->builder->whereRaw(sprintf('%s @> \'["%s"]\'', $attributeName, implode('", "', array_map('addslashes', $values))));
+                continue;
+            }
+
             $this->builder->$methodName($attributeName, $values);
         }
 

@@ -29,6 +29,11 @@ class Filter extends GenericFilter
     protected $filtersParam;
 
     /**
+     * @var array
+     */
+    protected $jsonAttributes = [];
+
+    /**
      * @var string
      */
     protected $attributesToRetrieveParam;
@@ -140,6 +145,15 @@ class Filter extends GenericFilter
         }
 
         throw new UnfilterableAttributeException(sprintf('"%s" attribute is not filterable', $attributeName));
+    }
+
+    /**
+     * @param string $attributeName
+     * @return bool
+     */
+    protected function isJsonField(string $attributeName): bool
+    {
+        return in_array($attributeName, $this->jsonAttributes) !== false;
     }
 
     /**
