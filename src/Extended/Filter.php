@@ -34,6 +34,11 @@ class Filter extends GenericFilter
     protected $jsonAttributes = [];
 
     /**
+     * @var array
+     */
+    protected $priceFields = [];
+
+    /**
      * @var string
      */
     protected $attributesToRetrieveParam;
@@ -154,6 +159,15 @@ class Filter extends GenericFilter
     protected function isJsonField(string $attributeName): bool
     {
         return in_array($attributeName, $this->jsonAttributes) !== false;
+    }
+
+    /**
+     * @param string $attributeName
+     * @return bool
+     */
+    protected function isPriceField(string $attributeName): bool
+    {
+        return in_array($attributeName, $this->priceFields) !== false;
     }
 
     /**

@@ -44,6 +44,11 @@ trait Sortable
             }
 
             if (empty($matches['operator']) || in_array($matches['operator'], $validOperators, true) === false) {
+                if ($this->isPriceField($matches['column'])) {
+                    $this->sortByPriceField($queryBuilder, $matches['column'], $sortDirection);
+                    continue;
+                }
+
                 $queryBuilder->orderBy($matches['column'], $sortDirection);
                 continue;
             }
@@ -60,6 +65,17 @@ trait Sortable
 
             $queryBuilder->orderByRaw($orderBy);
         }
+    }
+
+    /**
+     * @param Builder $queryBuilder
+     * @param string $columnName
+     * @param string $sortDirection
+     * @return Builder
+     */
+    protected function sortByPriceField(Builder $queryBuilder, string $columnName, string $sortDirection)
+    {
+        return $queryBuilder->orderByRaw(sprintf('case when(%1$s is null or %1$s = 0) then 1 else 0 end, %1$s %2$s', $columnName, $sortDirection));
     }
 
 }
